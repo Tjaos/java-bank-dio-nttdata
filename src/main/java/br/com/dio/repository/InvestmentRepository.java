@@ -16,7 +16,7 @@ import static br.com.dio.repository.CommonsRepository.checkFundsForTransaction;
 
 public class InvestmentRepository {
 
-    private long nextId;
+    private long nextId = 0;
     private final List<Investiment> investments = new ArrayList<>();
     private final List<InvestmentWallet> wallets = new ArrayList<>();
 
@@ -28,10 +28,12 @@ public class InvestmentRepository {
     }
 
     public InvestmentWallet initInvestment(final AccountWallet account, final long id){
-        var accountInUse = wallets.stream().map(InvestmentWallet::getAccount).toList();
+        if (!wallets.isEmpty()) {
+            var accountInUse = wallets.stream().map(InvestmentWallet::getAccount).toList();
             if (accountInUse.contains(account)) {
                 throw new AccountUseException("A conta '" + account + "' já possui um investimento");
             }
+        }
 
         var investment = findById(id);
         checkFundsForTransaction(account, investment.initialFunds());
@@ -83,4 +85,5 @@ public class InvestmentRepository {
     public List<Investiment> list() {
         return Collections.unmodifiableList(investments);
     }
+
 }
