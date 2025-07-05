@@ -11,11 +11,11 @@ import static br.com.dio.model.BankService.INVESTMENT;
 
 @ToString
 @Getter
-public class InvestimentWallet extends Wallet{
+public class InvestmentWallet extends Wallet{
     private final Investiment investiment;
     private final AccountWallet account;
 
-    public InvestimentWallet(final Investiment investiment, final AccountWallet account, final long amount) {
+    public InvestmentWallet(final Investiment investiment, final AccountWallet account, final long amount) {
         super(INVESTMENT);
         this.investiment = investiment;
         this.account = account;
