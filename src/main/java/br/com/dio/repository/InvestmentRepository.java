@@ -9,6 +9,7 @@ import br.com.dio.model.Investiment;
 import br.com.dio.model.InvestmentWallet;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static br.com.dio.repository.CommonsRepository.checkFundsForTransaction;
@@ -53,8 +54,8 @@ public class InvestmentRepository {
         return wallet;
     }
 
-    public void updateAmount(final long percent){
-        wallets.forEach(w -> w.updateAmount(percent));
+    public void updateAmount(){
+        wallets.forEach(w -> w.updateAmount(w.getInvestiment().tax()));
     }
 
     public Investiment findById(final long id){
@@ -80,6 +81,6 @@ public class InvestmentRepository {
     }
 
     public List<Investiment> list() {
-        return this.investiments;
+        return Collections.unmodifiableList(investments);
     }
 }
